@@ -12,8 +12,9 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 
-
+// User register logic
 app.use('/api/users', require('./routes/userRoutes'))
+
 
 //Error handler middleware, add in controller function body
 app.use(errorHandler)

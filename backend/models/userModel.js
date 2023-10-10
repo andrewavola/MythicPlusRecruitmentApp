@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 
+
+// Basic register user schema
 const userSchema = mongoose.Schema({
     name: {
         type: String,

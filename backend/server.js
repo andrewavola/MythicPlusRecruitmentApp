@@ -14,7 +14,7 @@ app.use(express.urlencoded({extended: false}))
 
 // User register logic
 app.use('/api/users', require('./routes/userRoutes'))
-
+app.use('/api/characters', require('./routes/characterRoutes'))
 
 //Error handler middleware, add in controller function body
 app.use(errorHandler)

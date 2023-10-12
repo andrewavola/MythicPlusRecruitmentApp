@@ -9,6 +9,8 @@ const User = require('../models/userModel')
 // @access          Public
 const registerUser = asyncHandler(async(req, res) => {
     const {name, email, password} = req.body
+
+    // Check if every field of data was entered properly
     if(!name || !email || !password){
         res.status(400)
         throw new Error ('Please add all fields')
@@ -16,7 +18,6 @@ const registerUser = asyncHandler(async(req, res) => {
 
     // Check if the user already exists
     const userExists = await User.findOne({email})
-
     if(userExists){
         res.status(400)
         throw new Error ('User is already registered with that email')
@@ -26,13 +27,14 @@ const registerUser = asyncHandler(async(req, res) => {
     const salt = await bcrypt.genSalt(10)
     const hashedPW = await bcrypt.hash(password, salt)
 
-    // Create the user
+    // Create the user in database collection
     const user = await User.create({
         name, 
         email,
         password: hashedPW
     })
 
+    // Generate JWT 
     if(user){
         res.status(201).json({
             _id: user.id,
@@ -76,13 +78,11 @@ const loginUser = asyncHandler(async(req, res) => {
 // @route           GET /api/users/me
 // @access          Private
 const getUser = asyncHandler(async(req, res) => {
-    const { _id, name, email } = await User.findById(req.user.id)
+    const { _id, name } = await User.findById(req.user.id)
     res.status(200).json({
         id: _id, 
         name, 
-        email
     })
-
 })
 
 

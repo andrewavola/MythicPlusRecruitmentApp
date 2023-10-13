@@ -5,8 +5,7 @@ const {createCharacter, getCharacters, deleteCharacter} = require('../controller
 
 
 router.post('/', protect, createCharacter)
-router.get('/getMyCharacters', protect,  getCharacters)
-router.get('/getCharacters', getCharacters)
+router.get('/getCharacters', protect,  getCharacters)
 router.delete('/deleteCharacter', protect, deleteCharacter)
 
 

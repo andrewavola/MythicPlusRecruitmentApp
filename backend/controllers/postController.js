@@ -1,6 +1,10 @@
 const asyncHandler = require('express-async-handler')
 const Post = require('../models/postModel')
 
+
+// @description     Allows user to create a post
+// @route           POST /api/posts
+// @access          Private
 const createPost = asyncHandler(async(req, res) => {
     const { user, characterName, text } = req.body
 
@@ -34,6 +38,10 @@ const createPost = asyncHandler(async(req, res) => {
 
 })
 
+
+// @description     Allows user to delete a post
+// @route           POST /api/posts/deletePost
+// @access          Private
 const deletePost = asyncHandler(async(req, res) => {
     const { user, characterName } = req.body
     if(!user || !characterName){
@@ -53,6 +61,9 @@ const deletePost = asyncHandler(async(req, res) => {
 })
 
 
+// @description     Gets all posts from specific user id 
+// @route           POST /api/posts/getPosts
+// @access          Private
 const getPosts = asyncHandler(async (req, res) => {
     const { user } = req.body
     if(!user){

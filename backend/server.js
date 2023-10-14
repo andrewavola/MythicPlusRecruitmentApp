@@ -16,6 +16,7 @@ app.use(express.urlencoded({extended: false}))
 app.use('/api/users', require('./routes/userRoutes'))
 app.use('/api/characters', require('./routes/characterRoutes'))
 app.use('/api/posts', require('./routes/postRoutes'))
+app.use('/api/recPosts', require('./routes/recruitmentPostRoutes'))
 
 //Error handler middleware, add in controller function body
 app.use(errorHandler)

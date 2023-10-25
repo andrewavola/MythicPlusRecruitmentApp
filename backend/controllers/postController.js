@@ -6,10 +6,10 @@ const Post = require('../models/postModel')
 // @route           POST /api/posts
 // @access          Private
 const createPost = asyncHandler(async(req, res) => {
-    const { user, characterName, text } = req.body
+    const { user, characterName, text, lookingForGroup, recruitingForGroup } = req.body
 
     //Check if we're missing a field
-    if(!user || !characterName || !text){
+    if(!user || !characterName || !text || !lookingForGroup, recruitingForGroup){
         res.status(400)
         throw new Error ('Missing fields')
     }
@@ -24,7 +24,9 @@ const createPost = asyncHandler(async(req, res) => {
     const post = await Post.create({
         user,
         characterName,
-        text
+        text, 
+        lookingForGroup,
+        recruitingForGroup
     })
 
     if(post){

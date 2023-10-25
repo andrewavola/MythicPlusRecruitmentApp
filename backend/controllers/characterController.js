@@ -8,10 +8,10 @@ const Character = require('../models/characterModel')
 // @route           POST /api/characters
 // @access          Private
 const createCharacter = asyncHandler(async (req, res) => {
-    const { user, name, mythicScore, itemLevel, server, race, region, classType} = req.body
-    if(!user || !name || !mythicScore || !itemLevel || !server || !race || !region || !classType){
+    const { user, name, mythicScore, server, race, region, classType} = req.body
+    if(!user || !name || !mythicScore || !server || !race || !region || !classType){
         res.status(400)
-        throw new Error ('Please add all fields')
+        throw new Error ('buns')
     }
 
     const characterExists = await Character.findOne({ name })
@@ -23,8 +23,7 @@ const createCharacter = asyncHandler(async (req, res) => {
     const character = await Character.create({
         user, 
         name, 
-        mythicScore, 
-        itemLevel, 
+        mythicScore,  
         server, 
         race, 
         region, 

@@ -26,8 +26,9 @@ function Header() {
           <button className='btn' onClick={onLogout}>
             <FaSignOutAlt />Logout
           </button>
-        </li>) : 
-        (<>
+        </li>
+        ) : (
+        <>
           <li>
             <Link to='/login'>
               <FaSignInAlt/> Login
@@ -38,7 +39,8 @@ function Header() {
               <FaUser />Register
             </Link>
           </li>
-        </>)}
+        </>)
+      }
       </ul>
     </header>
   )

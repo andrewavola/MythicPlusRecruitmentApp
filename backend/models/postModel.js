@@ -15,6 +15,14 @@ const postSchema = mongoose.Schema({
         type: String,
         required: true,
         maxlength: 200
+    },
+    lookingForGroup:{
+        type: Boolean,
+        required: true
+    },
+    recruitingForGroup:{
+        type: Boolean,
+        required: true
     }
 },
 {

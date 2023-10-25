@@ -15,10 +15,6 @@ const characterSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    itemLevel: {
-        type: String,
-        required: true
-    },
     server: {
         type: String,
         required: true

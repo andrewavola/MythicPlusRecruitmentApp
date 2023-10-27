@@ -11,10 +11,11 @@ const createCharacter = asyncHandler(async (req, res) => {
     const { user, name, mythicScore, server, race, region, classType} = req.body
     if(!user || !name || !mythicScore || !server || !race || !region || !classType){
         res.status(400)
-        throw new Error ('buns')
+        throw new Error ('Missing a field')
     }
 
-    const characterExists = await Character.findOne({ name })
+    
+    const characterExists = await Character.findOne({ user: user, name: name, server: server })
     if(characterExists){
         res.status(400)
         throw new Error ('Character already exists!')
@@ -68,18 +69,7 @@ const deleteCharacter = asyncHandler(async (req, res) => {
 // @route           POST /api/characters/getMyCharacters || /api/characters/getCharacters
 // @access          Private
 const getCharacters = asyncHandler(async (req, res) => {
-    const {user} = req.body
-    if(!user){
-        res.status(400)
-        throw new Error('Character does not exist')
-    }
-
-    try {
-        const characters = await Character.find({user: user})
-        res.status(200)
-        res.json(characters)
-    } catch (error) {
-        throw new Error('Could not find your characters')
-    }
+    const characters = await Character.find({user: req.user.id })
+    res.status(200).json(characters)
 })
 module.exports = {createCharacter, getCharacters, deleteCharacter}

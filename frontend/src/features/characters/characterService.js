@@ -18,7 +18,7 @@ const createCharacter = async(characterData, token) => {
   const extractedData = {
     user: characterData._id,
     name: raiderIOResponse.data.name,
-    mythicScore: raiderIOResponse.data.mythic_plus_scores_by_season[0].scores.all,
+    mythicScore: raiderIOResponse.data.mythic_plus_scores_by_season[0].scores.all.toString(),
     server: raiderIOResponse.data.realm,
     race: raiderIOResponse.data.race,
     region: raiderIOResponse.data.region,
@@ -29,8 +29,21 @@ const createCharacter = async(characterData, token) => {
   return response.data
 }
 
+// Get all of our user's characters that they have added
+const getCharacters = async(token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
+
+  const response = await axios.get(API_URL + 'getCharacters', config)
+  return response.data
+}
+
 const characterService = {
   createCharacter,
+  getCharacters
 
 }
 export default characterService

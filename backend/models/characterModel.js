@@ -13,7 +13,8 @@ const characterSchema = mongoose.Schema({
     },
     mythicScore: {
         type: String,
-        required: true
+        required: true,
+        default: '0'
     },
     server: {
         type: String,

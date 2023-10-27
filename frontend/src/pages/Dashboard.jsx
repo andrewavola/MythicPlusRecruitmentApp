@@ -4,7 +4,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import CharacterForm from "../components/CharacterForm"
 import Spinner from '../components/Spinner'
 import { reset, getCharacters } from "../features/characters/characterSlice"
-
+import CharacterItem from "../components/CharacterItem"
 function Dashboard() {
 
   const navigate = useNavigate()
@@ -44,6 +44,18 @@ function Dashboard() {
       </section>
       
       <CharacterForm/>
+
+      <section className="content">
+        <section className="content">
+          {characters.length > 0 ? (
+            <div className="goals">
+              {characters.map((character) => (
+                <CharacterItem key={character._id} character={character} />
+              ))}
+            </div>
+          ) : (<h3>You have not added characters</h3>)}
+        </section>
+      </section>
     </>
   )
 }

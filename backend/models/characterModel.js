@@ -16,6 +16,10 @@ const characterSchema = mongoose.Schema({
         required: true,
         default: '0'
     },
+    characterPicture:{
+        type: String,
+        required: true
+    },
     server: {
         type: String,
         required: true

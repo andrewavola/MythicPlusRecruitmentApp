@@ -8,8 +8,8 @@ const Character = require('../models/characterModel')
 // @route           POST /api/characters
 // @access          Private
 const createCharacter = asyncHandler(async (req, res) => {
-    const { user, name, mythicScore, server, race, region, classType} = req.body
-    if(!user || !name || !mythicScore || !server || !race || !region || !classType){
+    const { user, name, mythicScore, characterPicture, server, race, region, classType} = req.body
+    if(!user || !name || !mythicScore || !characterPicture || !server || !race || !region || !classType){
         res.status(400)
         throw new Error ('Missing a field')
     }
@@ -25,6 +25,7 @@ const createCharacter = asyncHandler(async (req, res) => {
         user, 
         name, 
         mythicScore,  
+        characterPicture,
         server, 
         race, 
         region, 

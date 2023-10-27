@@ -19,6 +19,7 @@ const createCharacter = async(characterData, token) => {
     user: characterData._id,
     name: raiderIOResponse.data.name,
     mythicScore: raiderIOResponse.data.mythic_plus_scores_by_season[0].scores.all.toString(),
+    characterPicture: raiderIOResponse.data.thumbnail_url,
     server: raiderIOResponse.data.realm,
     race: raiderIOResponse.data.race,
     region: raiderIOResponse.data.region,

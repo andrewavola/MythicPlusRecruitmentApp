@@ -11,7 +11,7 @@ function CharacterForm() {
   const _id = useSelector((state) => state.auth.user?._id || '')
   const characterData = {text, region, server, _id}
 
-  const onSubmit = (e) => {
+  const onSubmitCharacter = (e) => {
     e.preventDefault();
     dispatch(createCharacter(characterData))
     setText('')
@@ -19,8 +19,9 @@ function CharacterForm() {
   };
 
   return (
+    //Form for adding a character from Raider.io to their own dashboard page
     <section className="form">
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmitCharacter}>
         <div className="form-group">
           <label htmlFor="text">Type character name</label>
           <input

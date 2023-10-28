@@ -25,7 +25,6 @@ const createCharacter = async(characterData, token) => {
     region: raiderIOResponse.data.region,
     classType: raiderIOResponse.data.class
   }
-  console.log(extractedData)
   const response = await axios.post(API_URL, extractedData, config)
   return response.data
 }
@@ -42,9 +41,21 @@ const getCharacters = async(token) => {
   return response.data
 }
 
+// Delete the character from the user profile
+const deleteCharacter = async(characterID, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
+  const response = await axios.delete(API_URL + characterID, config)
+  return response.data
+}
+
 const characterService = {
   createCharacter,
-  getCharacters
+  getCharacters,
+  deleteCharacter
 
 }
 export default characterService

@@ -23,8 +23,9 @@ function Dashboard() {
       navigate('/login')
     }
     
-    if(user)
-      dispatch(getCharacters())
+    
+    dispatch(getCharacters())
+   
     
    
     return () => {
@@ -36,6 +37,7 @@ function Dashboard() {
   if(isLoading){
     return <Spinner/>
   }
+  console.log('Characters: ', characters)
   return (
     <>
       <section className="heading">
@@ -46,15 +48,13 @@ function Dashboard() {
       <CharacterForm/>
 
       <section className="content">
-        <section className="content">
-          {characters.length > 0 ? (
-            <div className="goals">
-              {characters.map((character) => (
-                <CharacterItem key={character._id} character={character} />
-              ))}
-            </div>
-          ) : (<h3>You have not added characters</h3>)}
-        </section>
+        {characters.length > 0 ? (
+          <div className="goals">
+            {characters.map((character) => (
+              <CharacterItem key={character._id} character={character} />
+            ))}
+          </div>
+        ) : (<h3>You have not added characters</h3>)}
       </section>
     </>
   )

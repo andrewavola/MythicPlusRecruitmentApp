@@ -33,36 +33,23 @@ const createCharacter = asyncHandler(async (req, res) => {
     })
 
     
-    if(character){
-        res.status(201).json({
-            message: 'Character successfuly added!'
-        })
-    } else{
-        res.status(400)
-        throw new Error('Invalid character data')
-    }
+    res.status(200).json(character)
 })
 
 // @description     Deletes a character posting
 // @route           POST /api/characters/deleteCharacter
 // @access          Private
 const deleteCharacter = asyncHandler(async (req, res) => {
-    const {user, name} = req.body
-    if(!user || !name){
+    
+    const result = await Character.deleteOne({_id: req.params.id})
+
+    if(result.deletedCount === 0){
         res.status(400)
-        throw new Error('Character does not exist')
+        throw new Error('Character not found')
     }
 
-    const query = { user: user, name: name}
-    const result = await Character.deleteOne(query)
 
-    if(result.deletedCount === 1){
-        res.json({ message: 'Deleted character successfuly'})
-    }
-    else{
-        res.status(400)
-        throw new Error('Character was not found')
-    }
+    res.status(200).json({id: req.params.id})
 })
 
 

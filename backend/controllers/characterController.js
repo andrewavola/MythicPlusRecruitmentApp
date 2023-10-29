@@ -33,7 +33,7 @@ const createCharacter = asyncHandler(async (req, res) => {
     })
 
     
-    res.status(200).json(character)
+    res.status(201).json(character)
 })
 
 // @description     Deletes a character posting

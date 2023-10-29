@@ -6,10 +6,10 @@ const Post = require('../models/postModel')
 // @route           POST /api/posts
 // @access          Private
 const createPost = asyncHandler(async(req, res) => {
-    const { user, characterName, text, lookingForGroup, recruitingForGroup } = req.body
-
+    const { user, characterPicture, characterName, mythicScore, classType, text, } = req.body
+    
     //Check if we're missing a field
-    if(!user || !characterName || !text || !lookingForGroup, recruitingForGroup){
+    if(!user || !characterName || !characterPicture || !mythicScore || !classType || !text){
         res.status(400)
         throw new Error ('Missing fields')
     }
@@ -23,20 +23,15 @@ const createPost = asyncHandler(async(req, res) => {
 
     const post = await Post.create({
         user,
+        characterPicture,
         characterName,
-        text, 
-        lookingForGroup,
-        recruitingForGroup
+        mythicScore,
+        classType,
+        text
+        
     })
 
-    if(post){
-        res.status(201).json({
-            message: 'Post successfuly created!'
-        })
-    } else{
-        res.status(400)
-        throw new Error('Invalid post data')
-    }
+    res.status(201).json(post)
 
 })
 
@@ -67,19 +62,12 @@ const deletePost = asyncHandler(async(req, res) => {
 // @route           POST /api/posts/getPosts
 // @access          Private
 const getPosts = asyncHandler(async (req, res) => {
-    const { user } = req.body
-    if(!user){
+    const posts = await Post.find()
+    if(posts){
+        res.status(200).json(posts)
+    }else{
         res.status(400)
-        throw new Error('User does not have any posts')
-    }
-
-    const result = await Post.find({user: user})
-    if(result){
-        res.status(200)
-        res.json(result)
-    } else{
-        req.status(400)
-        throw new Error('Error finding user posts')
+        throw new Error('Error fetching posts')
     }
 })
 

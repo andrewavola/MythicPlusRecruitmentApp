@@ -7,8 +7,20 @@ const postSchema = mongoose.Schema({
         required: true,
         ref: 'User'
     },
+    characterPicture:{
+        type: String,
+        required: true
+    },
     characterName: {
         type: String,
+        required: true
+    },
+    mythicScore:{
+        type: String,
+        required: true
+    },
+    classType:{
+        type:String,
         required: true
     },
     text: {
@@ -16,14 +28,7 @@ const postSchema = mongoose.Schema({
         required: true,
         maxlength: 200
     },
-    lookingForGroup:{
-        type: Boolean,
-        required: true
-    },
-    recruitingForGroup:{
-        type: Boolean,
-        required: true
-    }
+    
 },
 {
     timestamps: true

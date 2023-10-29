@@ -23,21 +23,19 @@ function Dashboard() {
       navigate('/login')
     }
     
-    
-    dispatch(getCharacters())
+    if(user)
+      dispatch(getCharacters())
    
-    
-   
-    return () => {
-      dispatch(reset())
-    }
+    // return () => {
+    //   dispatch(reset())
+    // }
   }, [user, navigate, isError, message, dispatch])
 
 
   if(isLoading){
     return <Spinner/>
   }
-  console.log('Characters: ', characters)
+  
   return (
     <>
       <section className="heading">

@@ -40,21 +40,14 @@ const createPost = asyncHandler(async(req, res) => {
 // @route           POST /api/posts/deletePost
 // @access          Private
 const deletePost = asyncHandler(async(req, res) => {
-    const { user, characterName } = req.body
-    if(!user || !characterName){
+    const result = await Post.deleteOne({_id: req.params.id})
+
+    if(result.deleteOne === 0){
         res.status(400)
-        throw new Error('Could not find character to delete')
+        throw new Error('Post not found')
     }
 
-    const query = { user: user, characterName: characterName}
-    const result = await Post.deleteOne(query)
-
-    if(result.deletedCount === 1){
-        res.json({ message: 'Deleted post successfuly'})
-    } else{
-        res.status(400)
-        throw new Error('Post to be deleted failed')
-    }
+    res.status(200).json({id: req.params.id})
 })
 
 

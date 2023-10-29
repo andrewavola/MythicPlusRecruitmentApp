@@ -5,6 +5,8 @@ import CharacterForm from "../components/CharacterForm"
 import Spinner from '../components/Spinner'
 import { reset, getCharacters } from "../features/characters/characterSlice"
 import CharacterItem from "../components/CharacterItem"
+import PostItem from '../components/PostItem'
+import { getPosts } from "../features/posts/postSlice"
 function Dashboard() {
 
   const navigate = useNavigate()
@@ -12,7 +14,7 @@ function Dashboard() {
 
   const { user } = useSelector((state) => state.auth)
   const { characters, isLoading, isError, message } = useSelector((state) => state.character)
-
+  const { posts } = useSelector((state) => state.post)
 
   useEffect(() => {
 
@@ -25,6 +27,7 @@ function Dashboard() {
     
     if(user)
       dispatch(getCharacters())
+      dispatch(getPosts())
    
     // return () => {
     //   dispatch(reset())
@@ -54,6 +57,22 @@ function Dashboard() {
           </div>
         ) : (<h3>You have not added characters</h3>)}
       </section>
+
+      <section className="heading">
+        <p>Your Posts</p>
+      </section>
+
+      <section className="content">
+        {posts.length > 0 ? (
+          <div className="goals">
+            {posts.map((post) => (
+              post.user === user._id && 
+                <PostItem key={post._id} post={post} />
+            ))}
+          </div>
+        ) : (<h3>You have not added posts to the feed</h3>)}
+      </section>
+
     </>
   )
 }

@@ -5,6 +5,6 @@ const {createPost, getPosts, deletePost} = require('../controllers/postControlle
 
 router.post('/', protect, createPost)
 router.get('/getPosts', protect, getPosts)
-router.delete('/deletePost', protect, deletePost)
+router.delete('/:id', protect, deletePost)
 
 module.exports = router

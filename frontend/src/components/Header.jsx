@@ -22,6 +22,7 @@ function Header() {
           <div className="logo">
             <Link to='/'>Home</Link>
             <Link to='/post'>Posts</Link>
+            <Link to='/message'>Messages</Link>
           </div>
         ) : (
           <Link to='/'>Home</Link>

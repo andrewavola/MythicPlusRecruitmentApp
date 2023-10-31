@@ -6,6 +6,7 @@ import Header from './components/Header';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import PostFeed from './pages/PostFeed';
+import Messages from './pages/Messages';
 function App() {
   return (
     <> 
@@ -17,6 +18,7 @@ function App() {
           <Route path = '/login' element = {<Login/>}></Route>
           <Route path = '/register' element = {<Register/>}></Route>
           <Route path = '/post' element = {<PostFeed/>}> </Route>
+          <Route path = '/message' element = {<Messages/>}></Route>
         </Routes>
       </div>
     </Router>

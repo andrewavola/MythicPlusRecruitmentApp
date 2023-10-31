@@ -21,6 +21,10 @@ function PostItem({post}) {
       {isCurrentUser && (
         <button onClick={handleDelete}>Delete Post</button>
       )}
+
+      {!isCurrentUser && (
+        <button>message button placeholder</button>
+      )}
     </div>
   )
 }

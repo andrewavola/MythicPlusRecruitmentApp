@@ -37,6 +37,11 @@ function Messages() {
             <Message/>
             <Message own={true}/>
             <Message/>
+            <Message/>
+            <Message/>
+            <Message/>
+            <Message/>
+            <Message/>
           </div>
           <div className="chatBoxBottom">
             <textarea className="chatMessageInput" placeholder="Send a message..."></textarea>

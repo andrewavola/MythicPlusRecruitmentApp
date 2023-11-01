@@ -33,7 +33,7 @@ const createConversation = asyncHandler(async(req, res) => {
 const getConversations = asyncHandler(async(req, res) => {
   try {
     const conversation = await Conversation.find({
-      members: {$in: [req.params.id]}
+      members: {$in: [req.user.id]}
     })
     res.status(200).json(conversation)
   } catch (error) {
@@ -42,7 +42,19 @@ const getConversations = asyncHandler(async(req, res) => {
   }
 })
 
+// Delete a conversation
+const deleteConversation = asyncHandler(async(req, res) => {
+  const result = await Conversation.deleteOne({_id: req.params.id})
+
+  if(result.deletedCount === 0){
+    res.status(400)
+    throw new Error('Failed to delete conversation')
+  }
+
+  res.status(200).json({id: req.params.id})
+})
 module.exports = {
   createConversation,
-  getConversations
+  getConversations,
+  deleteConversation
 }

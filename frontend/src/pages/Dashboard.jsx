@@ -66,7 +66,7 @@ function Dashboard() {
         {posts.length > 0 ? (
           <div className="goals">
             {posts.map((post) => (
-              post.user === user._id && 
+              post.user === user?._id && 
                 <PostItem key={post._id} post={post} />
             ))}
           </div>

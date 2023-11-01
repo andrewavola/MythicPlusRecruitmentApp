@@ -68,7 +68,6 @@ export const postSlice = createSlice({
       state.isError = true
       state.message = action.payload
     })
-    builder
     .addCase(createPost.pending, (state) => {
       state.isLoading = true
     })

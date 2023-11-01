@@ -7,7 +7,4 @@ router.post('/', protect, createMessage)
 router.get('/:conversationID', protect, getMessages)
 
 
-
-
-
 module.exports = router

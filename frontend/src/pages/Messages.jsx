@@ -7,27 +7,47 @@ import Spinner from "../components/Spinner";
 import "../Styles/messenger.css";
 import ConversationItem from "../components/ConversationItem";
 import Message from '../components/Message'
+import {getConversations, reset} from '../features/conversations/conversationSlice'
 
 function Messages() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const {conversations, isLoading, isError, message} = useSelector((state) => state.conversation)
+  const {user} = useSelector((state)=> state.auth)
+  
 
-  // grab everything from the conversations redux state after it's created, then use that array of conversations
-  // to map onto the 'chatmenuwrapper'
-  // Look to pass the user's first characters character image to the conversation img src just to have something
-  // Grab the state for conversations from files conversations.slice/conversations.service after dispatching
-  // some action inside of the useEffect
-
+  
   useEffect(() => {
     //In here we are going to grab all conversations that belong to the current user
-  })
+    if(isError){
+      console.log(message)
+    }
+    if(!user){
+      navigate('/login')
+    }
+
+    if(user){
+      dispatch(getConversations())
+    }
+  }, [user, navigate, isError, message, dispatch])
+
+  
+
+  if(isLoading){
+    return <Spinner/>
+  }
   return(
   <>
     <div className="messenger">
        <div className="chatMenu">
-        <div className="chatMenuWrapper">Menu
+        <div className="chatMenuWrapper">Chats
+          {conversations.map((conversation) => (
+            <ConversationItem key={conversation._id} conversation={conversation} />
+          ))}
+          {/* <ConversationItem/>
           <ConversationItem/>
           <ConversationItem/>
-          <ConversationItem/>
-          <ConversationItem/>
+          <ConversationItem/> */}
 
         </div>
        </div>

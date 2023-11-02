@@ -1,16 +1,28 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
-//User Post Scheme
+// User Post Scheme
 const conversationSchema = mongoose.Schema({
-    
-    members:{
-      type: Array,
-      required: true
-    }
-    
+  senderId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
+  receiverId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
+  senderName: {
+    type: String,
+    required: true,
+  },
+  receiverName: {
+    type: String,
+    required: true,
+  },
 },
 {
-    timestamps: true
-})
+  timestamps: true,
+});
 
-module.exports = mongoose.model('Conversations', conversationSchema)
+module.exports = mongoose.model('Conversations', conversationSchema);

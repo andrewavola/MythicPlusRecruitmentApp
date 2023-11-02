@@ -1,5 +1,5 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
-import messageService from './conversationService'
+import messageService from './messageService'
 
 const initialState = {
   messages: [],

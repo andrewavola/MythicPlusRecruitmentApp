@@ -7,7 +7,8 @@ function PostForm(){
   const [selectedCharacter, setSelectedCharacter] = useState(null)
   const dispatch = useDispatch()
   const {characters} = useSelector((state) => state.character)
-  const _id = useSelector((state) => state.auth.user?._id || '')
+  const {_id, name} = useSelector((state) => state.auth.user || {}) || {}
+  
 
 
   //functions for submitting and updating
@@ -27,9 +28,10 @@ function PostForm(){
 
   const handleSubmit = (event) =>{
     event.preventDefault()
-
+    console.log(name)
     const postData = {
       user: _id,
+      username: name,
       characterPicture: selectedCharacter?.characterPicture,
       characterName: selectedCharacter?.name,
       mythicScore: selectedCharacter?.mythicScore,

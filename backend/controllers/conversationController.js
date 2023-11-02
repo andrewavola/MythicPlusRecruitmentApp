@@ -4,11 +4,11 @@ const Conversation = require('../models/conversationModel')
 // Create a new conversation with another user
 const createConversation = asyncHandler(async(req, res) => {
 
-  const senderId = req.body.senderId
-  const receiverId = req.body.receiverId
+  const {senderId, receiverId, senderName, receiverName} = req.body
 
   const exists = await Conversation.findOne({
-    members: {$all: [senderId, receiverId]}
+      senderId: senderId,
+      receiverId: receiverId
   })
 
   if(exists){
@@ -16,7 +16,10 @@ const createConversation = asyncHandler(async(req, res) => {
   }
 
   const newConversation = new Conversation({
-    members: [senderId, receiverId]
+    senderId: senderId,
+    receiverId: receiverId,
+    senderName: senderName,
+    receiverName: receiverName
   })
 
   try {
@@ -33,7 +36,10 @@ const createConversation = asyncHandler(async(req, res) => {
 const getConversations = asyncHandler(async(req, res) => {
   try {
     const conversation = await Conversation.find({
-      members: {$in: [req.user.id]}
+      $or: [
+        {senderId: req.user.id},
+        {receiverId: req.user.id}
+      ]
     })
     res.status(200).json(conversation)
   } catch (error) {

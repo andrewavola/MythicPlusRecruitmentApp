@@ -40,6 +40,17 @@ export const login = createAsyncThunk('auth/login', async(user, thunkAPI) => {
   }
 })
 
+export const getUser = createAsyncThunk('auth/getUser', async(otherID, thunkAPI) => {
+  try {
+    const token = thunkAPI.getState().auth.user.token
+    return await authService.getUser(otherID,token)
+  } catch (error) {
+    const message = (error.response && error.response.data && error.response.data.message)
+      || error.message || error.toString()
+      return thunkAPI.rejectWithValue(message)
+  }
+})
+
 export const authSlice = createSlice({
   name: 'auth',
   initialState,

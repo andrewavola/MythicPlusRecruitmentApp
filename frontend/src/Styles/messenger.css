@@ -41,6 +41,7 @@
   height: 90px;
   padding: 10px;
   resize: none;
+  position: relative
 }
 
 .chatSubmitButton{

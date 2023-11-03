@@ -10,7 +10,7 @@ const initialState = {
 }
 
 //Get all messages from a conversation
-const getMessages = createAsyncThunk('messages/getAllMessages', async(convId, thunkAPI) => {
+export const getMessages = createAsyncThunk('messages/getAllMessages', async(convId, thunkAPI) => {
   try {
     const token = thunkAPI.getState().auth.user.token
     return await messageService.getMessages(convId, token)
@@ -21,7 +21,7 @@ const getMessages = createAsyncThunk('messages/getAllMessages', async(convId, th
   }
 })
 
-const createMessage = createAsyncThunk('messages/createMessage', async(messageData, thunkAPI) => {
+export const createMessage = createAsyncThunk('messages/createMessage', async(messageData, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token
       return await messageService.createMessage(messageData, token)

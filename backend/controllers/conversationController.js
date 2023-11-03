@@ -4,7 +4,7 @@ const Conversation = require('../models/conversationModel')
 // Create a new conversation with another user
 const createConversation = asyncHandler(async(req, res) => {
 
-  const {senderId, receiverId, senderName, receiverName} = req.body
+  const {senderId, receiverId, receiverPicture, senderName, receiverName} = req.body
 
   const exists = await Conversation.findOne({
       senderId: senderId,
@@ -18,6 +18,7 @@ const createConversation = asyncHandler(async(req, res) => {
   const newConversation = new Conversation({
     senderId: senderId,
     receiverId: receiverId,
+    receiverPicture: receiverPicture,
     senderName: senderName,
     receiverName: receiverName
   })

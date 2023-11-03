@@ -1,15 +1,29 @@
 import { useDispatch, useSelector } from "react-redux"
 import {deletePost} from '../features/posts/postSlice'
+import { createConversation, getConversations } from "../features/conversations/conversationSlice"
 function PostItem({post}) {
 
   //Grab current user id
-  const _id = useSelector((state) => state.auth.user?._id || '')
+  // const _id = useSelector((state) => state.auth.user?._id || '')
+  const {_id, name} = useSelector((state) => state.auth.user || {}) || {}
   const dispatch = useDispatch()
   //Check if this user owns the post
   const isCurrentUser = post.user === _id
 
   const handleDelete = () => {
     dispatch(deletePost(post._id))
+  }
+
+  const handleCreateConversation = () => {
+    const convData = {
+      senderId: _id,
+      receiverId: post.user,
+      receiverPicture: post.characterPicture,
+      senderName: name,
+      receiverName: post.characterName
+    }
+    
+    dispatch(createConversation(convData))
   }
   return (
     <div className="goal">
@@ -23,7 +37,7 @@ function PostItem({post}) {
       )}
 
       {!isCurrentUser && (
-        <button>message button placeholder</button>
+        <button onClick={handleCreateConversation}>message button placeholder</button>
       )}
     </div>
   )

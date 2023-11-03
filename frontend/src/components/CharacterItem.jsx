@@ -12,6 +12,7 @@ function CharacterItem({character}) {
     //dispatching post action
     const postData = {
       user: _id,
+      username: character?.name,
       characterPicture: character?.characterPicture,
       characterName: character?.name,
       mythicScore: character?.mythicScore,

@@ -14,6 +14,7 @@ const initialState = {
 export const getConversations = createAsyncThunk('conversations/getAllConversations', async(_, thunkAPI) => {
   try {
     const token = thunkAPI.getState().auth.user.token
+    console.log('called getConversations')
     return await conversationService.getConversations(token)
   } catch (error) {
     const message = (error.response && error.response.data && error.response.data.message)
@@ -27,7 +28,7 @@ export const getConversations = createAsyncThunk('conversations/getAllConversati
 export const createConversation = createAsyncThunk('conversations/createConversation', async(convData, thunkAPI) => {
   try {
     const token = thunkAPI.getState().auth.user.token
-    return await conversationService.getConversations(convData, token)
+    return await conversationService.createConversation(convData, token)
   } catch (error) {
     const message = (error.response && error.response.data && error.response.data.message)
       || error.message || error.toString()

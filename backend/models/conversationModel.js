@@ -12,6 +12,10 @@ const conversationSchema = mongoose.Schema({
     ref: 'User',
     required: true,
   },
+  receiverPicture:{
+    type: String,
+    required: true
+  },
   senderName: {
     type: String,
     required: true,

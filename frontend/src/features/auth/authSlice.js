@@ -3,13 +3,14 @@ import authService from './authService'
 
 // Get user from local storage
 const user = JSON.parse(localStorage.getItem('user'))
-
+const savedProfilePicture = localStorage.getItem('profilePicture');
 const initialState = {
   user: user ? user : null,
   isError: false,
   isSuccess: false,
   isLoading: false,
-  message:''
+  message:'',
+  profilePicture: savedProfilePicture || ''
 }
 
 
@@ -60,6 +61,10 @@ export const authSlice = createSlice({
       state.isSuccess = false
       state.isError = false
       state.message = ''
+    },
+    updatePFP: (state, action) => {
+      state.profilePicture = action.payload
+      localStorage.setItem('profilePicture', action.payload)
     }
   },
   extraReducers: (builder) => {
@@ -98,5 +103,5 @@ export const authSlice = createSlice({
   }
 })
 
-export const {reset} = authSlice.actions
+export const {reset, updatePFP} = authSlice.actions
 export default authSlice.reducer

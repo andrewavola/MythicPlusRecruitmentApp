@@ -1,9 +1,9 @@
-import { useEffect } from "react"
+import { useEffect, useState} from "react"
 import {useNavigate} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
 import CharacterForm from "../components/CharacterForm"
 import Spinner from '../components/Spinner'
-import { reset, getCharacters } from "../features/characters/characterSlice"
+import { getCharacters } from "../features/characters/characterSlice"
 import CharacterItem from "../components/CharacterItem"
 import PostItem from '../components/PostItem'
 import { getPosts } from "../features/posts/postSlice"
@@ -12,9 +12,12 @@ function Dashboard() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const { user } = useSelector((state) => state.auth)
+  const { user, profilePicture} = useSelector((state) => state.auth)
   const { characters, isLoading, isError, message } = useSelector((state) => state.character)
   const { posts } = useSelector((state) => state.post)
+  const defaultPFP = 'https://www.asiamediajournal.com/wp-content/uploads/2022/11/Default-PFP.jpg'
+
+
 
   useEffect(() => {
 
@@ -29,12 +32,9 @@ function Dashboard() {
       dispatch(getCharacters())
       dispatch(getPosts())
    
-    // return () => {
-    //   dispatch(reset())
-    // }
   }, [user, navigate, isError, message, dispatch])
 
-
+  
   if(isLoading){
     return <Spinner/>
   }
@@ -43,6 +43,13 @@ function Dashboard() {
     <>
       <section className="heading">
         <h1> Welcome {user && user.name}</h1>
+        <img src={profilePicture || defaultPFP} alt="Default PFP" style={{
+          width: '70px',
+          height: '70px',
+          borderRadius: '50%',
+          objectFit: 'cover'
+        }
+        }/>
         <p>Your characters</p>
       </section>
       

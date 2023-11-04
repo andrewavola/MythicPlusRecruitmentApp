@@ -6,80 +6,108 @@ import MessageItem from "../components/MessageItem";
 import Spinner from "../components/Spinner";
 import "../Styles/messenger.css";
 import ConversationItem from "../components/ConversationItem";
-import {getConversations, reset} from '../features/conversations/conversationSlice'
-import {getMessages} from '../features/messages/messageSlice'
-function Messages() {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const {conversations, isLoading, isError, message} = useSelector((state) => state.conversation)
-  const {messages} = useSelector((state) => state.message)
-  const {user} = useSelector((state)=> state.auth)
-  const [currentChat, setCurrentChat] = useState(null)
+import {
+  getConversations,
+  reset,
+} from "../features/conversations/conversationSlice";
+import { getMessages } from "../features/messages/messageSlice";
 
-  
+function Messages() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { conversations, isLoading: convLoading, isError, message } = useSelector(
+    (state) => state.conversation
+  );
+  const {isLoading: messageLoading} = useSelector(
+    (state) => state.message
+  )
+  const { messages } = useSelector((state) => state.message);
+  const { user } = useSelector((state) => state.auth);
+  const [currentChat, setCurrentChat] = useState(null);
+  const [otherUserPFP, setOtherUserPFP] = useState("");
+
   useEffect(() => {
     //In here we are going to grab all conversations that belong to the current user
-    if(isError){
-      console.log(message)
+    if (isError) {
+      console.log(message);
     }
-    if(!user){
-      navigate('/login')
+    if (!user) {
+      navigate("/login");
     }
 
-    if(user){
-      dispatch(getConversations())
+    if (user) {
+      dispatch(getConversations());
     }
-  }, [user, navigate, isError, message, dispatch])
-
+  }, [user, navigate, isError, message, dispatch]);
 
   useEffect(() => {
     try {
-      if(currentChat){
-        dispatch(getMessages(currentChat))
+      if (currentChat) {
+        dispatch(getMessages(currentChat));
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  },[currentChat, dispatch])
+  }, [currentChat, dispatch]);
 
-  const handleConversationClick = (conversationId) => {
-    setCurrentChat(conversationId)
+  const handleConversationClick = (conversation) => {
+    setOtherUserPFP(conversation.receiverPicture);
+    setCurrentChat(conversation._id);
+  };
+
+  if (convLoading || messageLoading) {
+    return <Spinner />;
   }
-  
-  //POSTS IS GOING TO HAVE THEIR CHARACTER PICTURE, SET THAT WHEN YOU CLICK ON THE MESSAGE BUTTON
-
-
-  if(isLoading){
-    return <Spinner/>
-  }
-  return(
-  <>
-    <div className="messenger">
-       <div className="chatMenu">
-        <div className="chatMenuWrapper">Chats
-          {conversations.map((conversation) => (
-            <div onClick={() => handleConversationClick(conversation._id)}>
-              <ConversationItem key={conversation._id} conversation={conversation} />
-            </div>
-          ))}
-        </div>
-       </div>
-       <div className="chatBox">
-        <div className="chatBoxWrapper">ChatBox
-          <div className="chatBoxTop">
-            {messages.map(m=> (
-              <MessageItem message={m} own={m.sender === user.name}/>
+  return (
+    <>
+      <div className="messenger">
+        <div className="chatMenu">
+          <div className="chatMenuWrapper">
+            Chats
+            {conversations.map((conversation) => (
+              <div onClick={() => handleConversationClick(conversation)}>
+                <ConversationItem
+                  key={conversation._id}
+                  conversation={conversation}
+                />
+              </div>
             ))}
-            
-          </div>
-          <div className="chatBoxBottom">
-            <textarea className="chatMessageInput" placeholder="Send a message..."></textarea>
-            <button className="chatSubmitButton">Send</button>
           </div>
         </div>
-       </div>
-    </div>
-  </>
-)}
+        <div className="chatBox">
+          <div className="chatBoxWrapper">
+            ChatBox
+            {currentChat ? (
+              <>
+                <div className="chatBoxTop">
+                  {messages.map((m) => (
+                    <MessageItem
+                      key={m._id}
+                      message={m}
+                      own={m.sender === user.name}
+                      otherPFP={otherUserPFP}
+                    />
+                  ))}
+                </div>
+
+                <div className="chatBoxBottom">
+                  <textarea
+                    className="chatMessageInput"
+                    placeholder="Send a message..."
+                  ></textarea>
+                  <button className="chatSubmitButton">Send</button>
+                </div>
+              </>
+            ) : (
+              <div className="selectConversationMessage">
+                Select a conversation to view messages.
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
 
 export default Messages;

@@ -14,7 +14,6 @@ const initialState = {
 export const getConversations = createAsyncThunk('conversations/getAllConversations', async(_, thunkAPI) => {
   try {
     const token = thunkAPI.getState().auth.user.token
-    console.log('called getConversations')
     return await conversationService.getConversations(token)
   } catch (error) {
     const message = (error.response && error.response.data && error.response.data.message)

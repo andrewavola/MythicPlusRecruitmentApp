@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import {deletePost} from '../features/posts/postSlice'
-import { createConversation, getConversations } from "../features/conversations/conversationSlice"
+import { createConversation} from "../features/conversations/conversationSlice"
 function PostItem({post}) {
 
   //Grab current user id

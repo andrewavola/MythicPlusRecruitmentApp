@@ -48,7 +48,9 @@ function Register() {
       const userData = {
         name, 
         email, 
-        password
+        password,
+        
+
       }
       dispatch(register(userData))
     }

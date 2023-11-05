@@ -53,9 +53,9 @@ export const messageSlice = createSlice({
         state.isError = true
         state.message = action.payload
       })
-      .addCase(createMessage.pending, (state) => {
-        state.isLoading = true
-      })
+      // .addCase(createMessage.pending, (state) => {
+      //   state.isLoading = true
+      // })
       .addCase(createMessage.fulfilled, (state, action) => {
         state.isLoading = false
         state.isSuccess = true

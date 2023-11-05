@@ -12,6 +12,7 @@ import {
 } from "../features/conversations/conversationSlice";
 import { getMessages } from "../features/messages/messageSlice";
 
+
 function Messages() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -91,11 +92,7 @@ function Messages() {
                 </div>
 
                 <div className="chatBoxBottom">
-                  <textarea
-                    className="chatMessageInput"
-                    placeholder="Send a message..."
-                  ></textarea>
-                  <button className="chatSubmitButton">Send</button>
+                  <MessageForm conversation={currentChat} sender={user.name}/>
                 </div>
               </>
             ) : (

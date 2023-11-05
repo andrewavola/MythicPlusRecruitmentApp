@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { deleteConversation } from "../features/conversations/conversationSlice";
+import { deleteAllMessages } from "../features/messages/messageSlice";
 function ConversationItem({conversation}) {
   
   const dispatch = useDispatch()
@@ -8,7 +9,9 @@ function ConversationItem({conversation}) {
   const displayName = isCurrentUserSender ? conversation.receiverName : conversation.senderName
 
   const handleDeleteConversation = () => {
+    console.log(conversation._id)
     dispatch(deleteConversation(conversation._id))
+    dispatch(deleteAllMessages(conversation._id))
   }
   return (
     <div className="conversation">

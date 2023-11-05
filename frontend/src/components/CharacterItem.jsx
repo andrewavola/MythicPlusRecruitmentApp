@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import {deleteCharacter} from '../features/characters/characterSlice'
 import { createPost } from '../features/posts/postSlice'
 import { updatePFP } from '../features/auth/authSlice'

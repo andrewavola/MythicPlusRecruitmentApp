@@ -7,8 +7,7 @@ import Spinner from "../components/Spinner";
 import "../Styles/messenger.css";
 import ConversationItem from "../components/ConversationItem";
 import {
-  getConversations,
-  reset,
+  getConversations
 } from "../features/conversations/conversationSlice";
 import { getMessages } from "../features/messages/messageSlice";
 
@@ -28,8 +27,10 @@ function Messages() {
   const [currentChat, setCurrentChat] = useState(null);
   const [otherUserPFP, setOtherUserPFP] = useState("");
 
+
+  // Get all conversations for the logged in User
   useEffect(() => {
-    //In here we are going to grab all conversations that belong to the current user
+  
     if (isError) {
       console.log(message);
     }
@@ -42,6 +43,8 @@ function Messages() {
     }
   }, [user, navigate, isError, message, dispatch]);
 
+
+  //Get messages for whichever conversation the user clicks on
   useEffect(() => {
     try {
       if (currentChat) {
@@ -52,16 +55,23 @@ function Messages() {
     }
   }, [currentChat, dispatch]);
 
+  // Handles scrolling to bottom of messages after user clicks on a conversation
   useEffect(() => {
     if(scrollReference.current){
-      scrollReference.current.scrollIntoView({behavior: "smooth"})
+      scrollReference.current.scrollIntoView({behavior: "auto"})
     }
   }, [messages])
 
+  useEffect(() => {
+    if(conversations.length === 0){
+      setCurrentChat(null)
+    }
+  }, [conversations])
   const handleConversationClick = (conversation) => {
     setOtherUserPFP(conversation.receiverPicture);
     setCurrentChat(conversation._id);
   };
+
 
   if (convLoading || messageLoading) {
     return <Spinner />;

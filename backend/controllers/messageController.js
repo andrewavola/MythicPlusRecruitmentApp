@@ -35,7 +35,19 @@ const getMessages = asyncHandler(async(req, res) => {
   
 })
 
+const deleteAllMessages = asyncHandler(async(req, res) => {
+  try {
+    // const messages = await Message.find({conversationID: req.params.conversationID})
+    const conversationID = req.params.conversationID
+    await Message.deleteMany({conversationID})
+    res.status(200).json({success: true, message: 'Messages deleted successfuly'})
+  } catch (error) {
+    res.status(400)
+    throw new Error('Could not find messages associated with that conversationID')
+  }
+})
 module.exports = {
   createMessage,
-  getMessages
+  getMessages,
+  deleteAllMessages
 }

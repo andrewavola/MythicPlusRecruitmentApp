@@ -1,14 +1,20 @@
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
+import { deleteConversation } from "../features/conversations/conversationSlice";
 function ConversationItem({conversation}) {
   
+  const dispatch = useDispatch()
   const currentUserID = useSelector((state) => state.auth.user?._id)
   const isCurrentUserSender = currentUserID === conversation.senderId
   const displayName = isCurrentUserSender ? conversation.receiverName : conversation.senderName
+
+  const handleDeleteConversation = () => {
+    dispatch(deleteConversation(conversation._id))
+  }
   return (
     <div className="conversation">
       <img className="conversationImg" src={conversation.receiverPicture} alt=""/>
       <span className="conversationName">{displayName}</span>
+      <button onClick={handleDeleteConversation} className="close">X</button>
     </div>
   )
 }

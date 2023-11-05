@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import MessageForm from "../components/MessageForm";
@@ -12,16 +12,17 @@ import {
 } from "../features/conversations/conversationSlice";
 import { getMessages } from "../features/messages/messageSlice";
 
-
 function Messages() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { conversations, isLoading: convLoading, isError, message } = useSelector(
-    (state) => state.conversation
-  );
-  const {isLoading: messageLoading} = useSelector(
-    (state) => state.message
-  )
+  const {
+    conversations,
+    isLoading: convLoading,
+    isError,
+    message,
+  } = useSelector((state) => state.conversation);
+  const { isLoading: messageLoading } = useSelector((state) => state.message);
+  const scrollReference = useRef();
   const { messages } = useSelector((state) => state.message);
   const { user } = useSelector((state) => state.auth);
   const [currentChat, setCurrentChat] = useState(null);
@@ -50,6 +51,12 @@ function Messages() {
       console.log(error);
     }
   }, [currentChat, dispatch]);
+
+  useEffect(() => {
+    if(scrollReference.current){
+      scrollReference.current.scrollIntoView({behavior: "smooth"})
+    }
+  }, [messages])
 
   const handleConversationClick = (conversation) => {
     setOtherUserPFP(conversation.receiverPicture);
@@ -82,17 +89,18 @@ function Messages() {
               <>
                 <div className="chatBoxTop">
                   {messages.map((m) => (
-                    <MessageItem
-                      key={m._id}
-                      message={m}
-                      own={m.sender === user.name}
-                      otherPFP={otherUserPFP}
-                    />
+                    <div key={m._id} ref={scrollReference}>
+                      <MessageItem
+                        message={m}
+                        own={m.sender === user.name}
+                        otherPFP={otherUserPFP}
+                      />
+                    </div>
                   ))}
                 </div>
 
                 <div className="chatBoxBottom">
-                  <MessageForm conversation={currentChat} sender={user.name}/>
+                  <MessageForm conversation={currentChat} sender={user.name} />
                 </div>
               </>
             ) : (

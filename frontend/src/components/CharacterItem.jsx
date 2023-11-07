@@ -24,7 +24,7 @@ function CharacterItem({character}) {
       classType: character?.classType,
       text: postText
     }
-    console.log(postData)
+    
     dispatch(createPost(postData))
     setPostText('')
     setTextFieldVisible(false)

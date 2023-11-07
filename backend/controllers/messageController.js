@@ -1,6 +1,6 @@
 const asyncHandler = require('express-async-handler')
 const Message = require('../models/messageModel')
-
+const Conversation = require('../models/conversationModel')
 // Create a new message
 const createMessage = asyncHandler(async(req, res) => {
   
@@ -8,6 +8,14 @@ const createMessage = asyncHandler(async(req, res) => {
   if(!conversationID || !sender || !text){
     res.status(400)
     throw new Error('Missing a field')
+  }
+
+  
+  //need to check if conversation exists before saving a message
+  const existingConversation = await Conversation.findById(conversationID)
+  if(!existingConversation){
+    res.status(400)
+    throw new Error('Conversation does not exist')
   }
 
   const newMessage = new Message(req.body)

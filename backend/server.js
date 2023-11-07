@@ -23,4 +23,57 @@ app.use('/api/messages/', require('./routes/messageRoutes'))
 app.use(errorHandler)
 
 
-app.listen(port, () => console.log(`Server started on port ${port}`))
+const server = app.listen(port, () => console.log(`Server started on port ${port}`))
+
+// socket io
+const io = require('socket.io')(server, {
+  // pingTimeout: 60000,
+  cors:{
+    origin: "http://localhost:3000"
+  }
+})
+
+
+let users = []
+
+const addUser = (userId, socketId) => {
+  !users.some(user=>user.userId === userId) && 
+      users.push({userId, socketId})
+}
+
+const removeUser = (socketId) => {
+  users = users.filter(user=>user.socketId !== socketId)
+}
+
+const getUser = (userId) => {
+  return users.find(user=>user.userId === userId)
+}
+
+io.on('connect', (socket)=>{
+  console.log('connected to socket.io')
+
+  socket.on("addUser", userId=>{
+    addUser(userId, socket.id)
+    io.emit("getUsers", users)
+  })
+
+  socket.on("sendMessage", ({conversationID, sender, receiverId, text}) => {
+    
+    const other = getUser(receiverId)
+    if(other){
+      io.to(other.socketId).emit("getMessage", {
+        conversationID: conversationID,
+        sender: sender,
+        text: text
+      })
+      
+    }
+    
+  })
+
+  socket.on("disconnect", () => {
+    console.log("a user disconnect")
+    removeUser(socket.id)
+    io.emit("getUsers", users)
+  })
+})

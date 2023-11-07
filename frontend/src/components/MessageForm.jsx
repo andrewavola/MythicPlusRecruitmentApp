@@ -1,17 +1,30 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createMessage } from "../features/messages/messageSlice";
-function MessageForm({ conversation, sender }) {
+import {toast, ToastContainer} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
+function MessageForm({ conversation, sender, receiver, socket }) {
   const dispatch = useDispatch();
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState("")
+  const {_id} = useSelector((state) => state.auth.user)
+ 
+
 
   const sendMessage = (e) => {
-    e.preventDefault();
+    e.preventDefault()
+
     const convData = {
       conversationID: conversation,
       sender: sender,
       text: message,
-    };
+    }
+    socket.current.emit("sendMessage", {
+      conversationID: conversation,
+      sender: sender,
+      receiverId: receiver,
+      text: message,
+    })
 
     dispatch(createMessage(convData));
     setMessage("");
@@ -35,6 +48,7 @@ function MessageForm({ conversation, sender }) {
       >
         Send
       </button>
+      <ToastContainer/>
     </div>
   );
 }

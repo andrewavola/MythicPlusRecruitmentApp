@@ -43,11 +43,16 @@ export const deleteAllMessages = createAsyncThunk('messages/deleteAllMessages', 
   }
 })
 
+
+
 export const messageSlice = createSlice({
   name: 'messages',
   initialState,
   reducers: {
-    reset: (state) => initialState
+    reset: (state) => initialState,
+    setMessages: (state, action) => {
+      state.messages.push(action.payload)
+    }
   },
    extraReducers: (builder) => {
     builder
@@ -94,5 +99,5 @@ export const messageSlice = createSlice({
   })
 
 
-export const {reset} = messageSlice.actions
+export const {reset, setMessages} = messageSlice.actions
 export default messageSlice.reducer

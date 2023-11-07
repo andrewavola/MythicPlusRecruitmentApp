@@ -9,25 +9,65 @@ import ConversationItem from "../components/ConversationItem";
 import {
   getConversations
 } from "../features/conversations/conversationSlice";
-import { getMessages } from "../features/messages/messageSlice";
+import { getMessages, setMessages } from "../features/messages/messageSlice";
+
+import io from 'socket.io-client'
+
+ 
 
 function Messages() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+ 
   const {
     conversations,
     isLoading: convLoading,
     isError,
     message,
   } = useSelector((state) => state.conversation);
+
   const { isLoading: messageLoading } = useSelector((state) => state.message);
   const scrollReference = useRef();
   const { messages } = useSelector((state) => state.message);
   const { user } = useSelector((state) => state.auth);
   const [currentChat, setCurrentChat] = useState(null);
   const [otherUserPFP, setOtherUserPFP] = useState("");
+  const [otherUser, setOtherUser] = useState(null)
+  
+  const socket = useRef()
+  
 
+  useEffect(() => {
+    socket.current = io("ws://localhost:5000")
+    return () => {
+      socket.current.disconnect()
+    }
+  },[])
 
+  useEffect(() => {
+    socket.current.emit("addUser", user?._id);
+  }, [user])
+
+  useEffect(() => {
+    const handleReceivedMessage = (data) => {
+      const newMessage = {
+        conversationID: data.conversationID,
+        sender: data.sender,
+        text: data.text
+      };
+      // Dispatch the updated arrivalMessage to the store
+      dispatch(setMessages(newMessage));
+    };
+  
+    socket.current.on("getMessage", handleReceivedMessage);
+  
+    return () => {
+      socket.current.off("getMessage", handleReceivedMessage);
+    };
+  }, [dispatch]);
+
+  
   // Get all conversations for the logged in User
   useEffect(() => {
   
@@ -48,7 +88,7 @@ function Messages() {
   useEffect(() => {
     try {
       if (currentChat) {
-        dispatch(getMessages(currentChat));
+        dispatch(getMessages(currentChat._id));
       }
     } catch (error) {
       console.log(error);
@@ -67,9 +107,11 @@ function Messages() {
       setCurrentChat(null)
     }
   }, [conversations])
+  
   const handleConversationClick = (conversation) => {
-    setOtherUserPFP(conversation.receiverPicture);
-    setCurrentChat(conversation._id);
+    setOtherUserPFP((user._id === conversation.receiverId) ? conversation.senderPicture : conversation.receiverPicture);
+    setCurrentChat(conversation);
+    setOtherUser((user._id === conversation.receiverId) ? conversation.senderId : conversation.receiverId)
   };
 
 
@@ -87,6 +129,7 @@ function Messages() {
                 <ConversationItem
                   key={conversation._id}
                   conversation={conversation}
+                  otherPFP={((user._id === conversation.senderId) ? conversation.receiverPicture : conversation.senderPicture)}
                 />
               </div>
             ))}
@@ -110,7 +153,8 @@ function Messages() {
                 </div>
 
                 <div className="chatBoxBottom">
-                  <MessageForm conversation={currentChat} sender={user.name} />
+                  <MessageForm conversation={currentChat._id} sender={user.name}
+                    receiver={otherUser} socket = {socket}/>
                 </div>
               </>
             ) : (

@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { deleteConversation } from "../features/conversations/conversationSlice";
 import { deleteAllMessages } from "../features/messages/messageSlice";
-function ConversationItem({conversation}) {
+function ConversationItem({conversation, otherPFP}) {
   
   const dispatch = useDispatch()
   const currentUserID = useSelector((state) => state.auth.user?._id)
@@ -15,7 +15,7 @@ function ConversationItem({conversation}) {
   }
   return (
     <div className="conversation">
-      <img className="conversationImg" src={conversation.receiverPicture} alt=""/>
+      <img className="conversationImg" src={otherPFP} alt=""/>
       <span className="conversationName">{displayName}</span>
       <button onClick={handleDeleteConversation} className="close">X</button>
     </div>

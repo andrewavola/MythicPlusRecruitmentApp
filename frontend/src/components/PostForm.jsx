@@ -28,7 +28,7 @@ function PostForm(){
 
   const handleSubmit = (event) =>{
     event.preventDefault()
-    console.log(name)
+    
     const postData = {
       user: _id,
       username: name,

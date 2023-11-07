@@ -6,6 +6,7 @@ function PostItem({post}) {
   //Grab current user id
   // const _id = useSelector((state) => state.auth.user?._id || '')
   const {_id, name} = useSelector((state) => state.auth.user || {}) || {}
+  const {profilePicture} = useSelector((state)=> state.auth)
   const dispatch = useDispatch()
   //Check if this user owns the post
   const isCurrentUser = post.user === _id
@@ -18,6 +19,7 @@ function PostItem({post}) {
     const convData = {
       senderId: _id,
       receiverId: post.user,
+      senderPicture: profilePicture,
       receiverPicture: post.characterPicture,
       senderName: name,
       receiverName: post.characterName

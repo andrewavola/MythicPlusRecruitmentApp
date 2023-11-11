@@ -20,6 +20,9 @@ function Dashboard() {
 
 
   useEffect(() => {
+    document.getElementById('app-body').style.backgroundImage = "url('https://wow.zamimg.com/images/tools/dragonflight-talent-calc/blizzard/talentbg-demon-hunter-havoc.jpg')"
+  }, [])
+  useEffect(() => {
 
     if(isError){
       console.log(message)

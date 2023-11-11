@@ -5,6 +5,8 @@ import { store } from './app/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import '../src/scss/main.scss'
 
 const container = document.getElementById('root');
 const root = createRoot(container);

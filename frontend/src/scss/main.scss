@@ -1,0 +1,11 @@
+$body-color: red;
+body{
+  background-image: url('https://wow.zamimg.com/images/tools/dragonflight-talent-calc/blizzard/talentbg-mage-fire.jpg');
+  background-repeat: no-repeat;
+  background-size: cover; // Adjust as needed
+  background-attachment: fixed;
+}
+
+@import '../../node_modules/bootstrap/scss/bootstrap';
+
+

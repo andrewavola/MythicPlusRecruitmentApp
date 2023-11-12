@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FaSignInAlt } from "react-icons/fa";
+import { BiLogIn } from "react-icons/bi";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -68,15 +68,14 @@ function Login() {
   return (
     <>
         <Container>
-          <Row className="justify-content-center mt-5">
+          <Row className="justify-content-center">
             <Col md={6}>
               <section className="heading text-center">
                 <h1>
-                  <FaSignInAlt /> Login
+                  <BiLogIn /> Login to M+ Recruiter
                 </h1>
-                <p>Please log in </p>
               </section>
-              <section className="form">
+              <section>
                 <Form onSubmit={onSubmit}>
                   <Form.Group className="mb-3">
                     <FloatingLabel controlId="email" label="Email address">
@@ -103,7 +102,7 @@ function Login() {
 
                   <Form.Group>
                     <Button type="submit" variant="secondary">
-                      Submit
+                      Log in
                     </Button>
                   </Form.Group>
                 </Form>

@@ -37,7 +37,10 @@ function Messages() {
   
   const socket = useRef()
   
-
+  useEffect(() => {
+    document.getElementById('app-body').style.backgroundImage = "url('https://wow.zamimg.com/images/tools/dragonflight-talent-calc/blizzard/talentbg-monk-mistweaver.jpg')"
+  }, [])
+  
   useEffect(() => {
     socket.current = io("ws://localhost:5000")
     return () => {

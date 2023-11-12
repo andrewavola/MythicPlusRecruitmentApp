@@ -15,6 +15,11 @@ function PostFeed() {
   // const {character} = useSelector((state)=> state.character)
   const {posts, isLoading, isError, message} = useSelector((state) => state.post)
 
+
+  useEffect(() => {
+    document.getElementById('app-body').style.backgroundImage = "url('https://wow.zamimg.com/images/tools/dragonflight-talent-calc/blizzard/talentbg-druid-guardian.jpg')"
+  }, [])
+
   useEffect(() => {
 
     if(isError){

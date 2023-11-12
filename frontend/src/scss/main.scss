@@ -1,9 +1,32 @@
-$body-color: red;
+$body-color: rgb(219, 214, 214);
+$secondary: rgba(43, 43, 43, 0.959);
+$nav-link-font-size: 20px;
+$input-bg: rgba(0, 0, 0, 0.425);
 body{
   background-image: url('https://wow.zamimg.com/images/tools/dragonflight-talent-calc/blizzard/talentbg-mage-fire.jpg');
   background-repeat: no-repeat;
-  background-size: cover; // Adjust as needed
+  background-size: cover;
   background-attachment: fixed;
+  background-position: center;
+  
+  
+}
+
+.navbar-brand {
+  margin-left: 150px;
+}
+
+
+.container-fluid {
+  padding: 0 10px;
+}
+
+.heading{
+  margin-top: 200px;
+}
+
+.form-control{
+  background-color: black;
 }
 
 @import '../../node_modules/bootstrap/scss/bootstrap';

@@ -73,7 +73,7 @@ function Register() {
     <>
       <Container>
         <Row className="justify-content-center">
-          <Col  md={6}>
+          <Col md={6}>
             <section className="heading text-center">
               <h1>
                 <BsJournalArrowUp /> Register
@@ -84,66 +84,65 @@ function Register() {
         </Row>
         <Row className="justify-content-center">
           <Col md={6}>
-          <section>
-            <Form onSubmit={onSubmit}>
-              <Form.Group className="mb-3">
-                <FloatingLabel controlId="name" label="Enter username">
-                  <Form.Control
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={name}
-                    placeholder="Enter your username"
-                    onChange={onChange}
-                  />
-                </FloatingLabel>
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <FloatingLabel controlId="email" label="Enter your email">
-                  <Form.Control
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={email}
-                    placeholder="Enter your email"
-                    onChange={onChange}
-                  />
-                </FloatingLabel>
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <FloatingLabel controlId="password" label="Enter your password">
-                  <Form.Control
-                    type="password"
-                    id="password"
-                    name="password"
-                    value={password}
-                    placeholder="Enter your password"
-                    onChange={onChange}
-                  />
-                </FloatingLabel>
-              </Form.Group>
+            <section>
+              <Form onSubmit={onSubmit}>
+                <Form.Group className="mb-3">
+                  <FloatingLabel controlId="name" label="Enter username">
+                    <Form.Control
+                      type="text"
+                      name="name"
+                      value={name}
+                      placeholder="Enter your username"
+                      onChange={onChange}
+                    />
+                  </FloatingLabel>
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <FloatingLabel controlId="email" label="Enter your email">
+                    <Form.Control
+                      type="email"
+                      name="email"
+                      value={email}
+                      placeholder="Enter your email"
+                      onChange={onChange}
+                    />
+                  </FloatingLabel>
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <FloatingLabel
+                    controlId="password"
+                    label="Enter your password"
+                  >
+                    <Form.Control
+                      type="password"
+                      name="password"
+                      value={password}
+                      placeholder="Enter your password"
+                      onChange={onChange}
+                    />
+                  </FloatingLabel>
+                </Form.Group>
 
-              <Form.Group className="mb-3">
-                <FloatingLabel
-                  controlId="password2"
-                  label="Confirm your password"
-                >
-                  <Form.Control
-                    type="password"
-                    id="password2"
-                    name="password2"
-                    value={password2}
-                    placeholder="Confirm your password"
-                    onChange={onChange}
-                  />
-                </FloatingLabel>
-              </Form.Group>
-              <Form.Group>
-                <Button type="submit" variant="secondary" block>
-                  Register
-                </Button>
-              </Form.Group>
-            </Form>
+                <Form.Group className="mb-3">
+                  <FloatingLabel
+                    controlId="password2"
+                    label="Confirm your password"
+                  >
+                    <Form.Control
+                      type="password"
+                      name="password2"
+                      value={password2}
+                      placeholder="Confirm your password"
+                      onChange={onChange}
+                    />
+                  </FloatingLabel>
+                </Form.Group>
+                <Form.Group>
+                  <Button type="submit" variant="secondary" block>
+                    Register
+                  </Button>
+                </Form.Group>
+              </Form>
             </section>
           </Col>
         </Row>

@@ -18,7 +18,7 @@ function Header() {
     navigate("/");
   };
   return (
-    <Navbar style={{ backgroundColor: 'rgba(65, 65, 65, 0.85)' }} className="navbar navbar-expand-lg navbar-dark shadow-5-strong fixed-top" >
+    <Navbar style={{ backgroundColor: 'rgba(13, 13, 13, 0.6)' }} className="navbar navbar-expand-lg navbar-dark shadow-5-strong fixed-top" >
       <Navbar.Brand as={Link} to="/">
         <BiHome/> Home
       </Navbar.Brand>

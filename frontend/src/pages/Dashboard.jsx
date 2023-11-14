@@ -59,7 +59,7 @@ function Dashboard() {
       <CharacterForm />
 
       <Container className="d-flex justify-content-center">
-        <Col style={{ backgroundColor: "rgba(13, 13, 13, 0.6)" }} md={10}>
+        <Col style={{borderRadius: '10px',backgroundColor: "rgba(13, 13, 13, 1)"}} md={10}>
           <Row>
             <Col md={6}>
               {characters.length > 0 ? (

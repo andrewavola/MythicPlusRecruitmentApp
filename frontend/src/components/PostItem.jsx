@@ -85,8 +85,8 @@ function PostItem({ post }) {
           </Card.Text>
         </Col>
         <Col md={8} className="text-center">
-          <Row style={{ flex: 1 }}>
-            <Card.Body style={{ height: "100%", width: "100%" }}>
+          <Row style={{ flex: 1, width: '100%', paddingLeft: '13px'}}>
+            <Card.Body style={{borderRadius: '10px', border: '1px solid #000',backgroundColor: 'rgba(0,0,0,0.1)', height: "100%", width: "100%" }}>
               {post.text}
             </Card.Body>
           </Row>
@@ -96,13 +96,13 @@ function PostItem({ post }) {
               variant="link"
               className="close-button"
               onClick={() => handleDelete(post._id)}
-              style={{width: '30%',fontSize: "1.5rem", color: "red" }}
+              style={{marginTop: '50px',width: '30%',fontSize: "1.5rem", color: "black" }}
             >
               <MdClose />
             </Button>
             )}
             {!isCurrentUser && (
-              <Button onClick={handleCreateConversation}>
+              <Button style={{marginTop: '50px',  marginBottom: '10px', borderColor: 'black',backgroundColor: 'black'}}onClick={handleCreateConversation}>
                 <BiMessageAdd/>
               </Button>
             )}

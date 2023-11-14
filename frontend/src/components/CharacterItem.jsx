@@ -129,9 +129,9 @@ function CharacterItem({ character }) {
             </Button>
          
         </Col>
-        <Col md={8}>
-          <Row>
-            <Card.Body style={{ width: "100%" }} className="text-left">
+        <Col md={8} > 
+          <Row style={{paddingLeft: '10px', paddingRight: '21px', paddingTop:'5px', paddingBottom: '5px'}} >
+            <Card.Body  style={{borderRadius:'10px',border:'1px solid #000',backgroundColor: 'rgba(0,0,0,0.2)'}}className="text-left">
               <Card.Title>Class: {character.classType}</Card.Title>
               <Card.Title>Server: {character.server}</Card.Title>
               <Card.Title>Race: {character.race}</Card.Title>

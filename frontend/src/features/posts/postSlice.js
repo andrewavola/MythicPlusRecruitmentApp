@@ -69,9 +69,9 @@ export const postSlice = createSlice({
       state.isError = true
       state.message = action.payload
     })
-    .addCase(createPost.pending, (state) => {
-      state.isLoading = true
-    })
+    // .addCase(createPost.pending, (state) => {
+    //   state.isLoading = true
+    // })
     .addCase(createPost.fulfilled, (state, action) => {
       toast.success("Post created successfully!", {
         position: "top-right",
@@ -100,9 +100,9 @@ export const postSlice = createSlice({
         draggable: true,
       });
     })
-    .addCase(deletePost.pending, (state) => {
-      state.isLoading = true
-    })
+    // .addCase(deletePost.pending, (state) => {
+    //   state.isLoading = true
+    // })
     .addCase(deletePost.fulfilled, (state, action) => {
       state.isLoading = false
       state.posts = state.posts.filter((post) => post._id !== action.payload.id)

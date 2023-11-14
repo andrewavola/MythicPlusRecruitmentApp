@@ -1,5 +1,6 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 import postService from './postService'
+import { toast } from "react-toastify";
 
 
 // This slice will be responsible for rendering all current user posts to the dashboard
@@ -72,21 +73,38 @@ export const postSlice = createSlice({
       state.isLoading = true
     })
     .addCase(createPost.fulfilled, (state, action) => {
+      toast.success("Post created successfully!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
       state.isLoading = false
       state.isSuccess = true
       state.posts.push(action.payload)
     })
     .addCase(createPost.rejected, (state, action) => {
+      
+      state.isSuccess = false
       state.isLoading = false
       state.isError = true
       state.message = action.payload
+      toast.error(state.message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     })
     .addCase(deletePost.pending, (state) => {
       state.isLoading = true
     })
     .addCase(deletePost.fulfilled, (state, action) => {
       state.isLoading = false
-      state.isSuccess = true
       state.posts = state.posts.filter((post) => post._id !== action.payload.id)
     })
     .addCase(deletePost.rejected, (state, action) => {

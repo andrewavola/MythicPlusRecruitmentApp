@@ -7,14 +7,7 @@ import { getCharacters } from "../features/characters/characterSlice";
 import CharacterItem from "../components/CharacterItem";
 import PostItem from "../components/PostItem";
 import { getPosts } from "../features/posts/postSlice";
-import {
-  Container,
-  Row,
-  Col,
-  Form,
-  Button,
-  FloatingLabel,
-} from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 function Dashboard() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -54,15 +47,13 @@ function Dashboard() {
           src={profilePicture || defaultPFP}
           alt="Default PFP"
           style={{
-            width: "70px",
-            height: "70px",
+            width: "200px",
+            height: "200px",
             borderRadius: "50%",
             objectFit: "cover",
           }}
         />
         <h1> Welcome {user && user.name}</h1>
-
-        {/* <p>Your characters</p> */}
       </section>
 
       <CharacterForm />
@@ -84,30 +75,23 @@ function Dashboard() {
               </section>
             </Col>
             <Col md={6}>
-              <h3>Your Posts</h3>
+              <section>
+                <h3>Your Posts</h3>
+                {posts.length > 0 && (
+                  <div>
+                    {posts.map(
+                      (post) =>
+                        post.user === user?._id && (
+                          <PostItem key={post._id} post={post} />
+                        )
+                    )}
+                  </div>
+                )}
+              </section>
             </Col>
           </Row>
         </Col>
       </Container>
-
-      <section className="heading">
-        <p>Your Posts</p>
-      </section>
-
-      <section className="content">
-        {posts.length > 0 ? (
-          <div className="goals">
-            {posts.map(
-              (post) =>
-                post.user === user?._id && (
-                  <PostItem key={post._id} post={post} />
-                )
-            )}
-          </div>
-        ) : (
-          <h3>You have not added posts to the feed</h3>
-        )}
-      </section>
     </>
   );
 }

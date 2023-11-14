@@ -3,7 +3,7 @@ $secondary: rgba(24, 24, 24, 0.959);
 $nav-link-font-size: 20px;
 $input-bg: rgba(0, 0, 0, 0.75);
 $card-title-color: black;
-
+$card-color: black;
 body{
   background-image: url('https://wow.zamimg.com/images/tools/dragonflight-talent-calc/blizzard/talentbg-mage-fire.jpg');
   background-repeat: no-repeat;
@@ -19,7 +19,7 @@ body{
 }
 
 .card-text{
-  color: rgb(87, 87, 87);
+  color: black;
   margin-bottom: 10px;
 }
 .container-fluid {

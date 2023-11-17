@@ -4,6 +4,8 @@ $nav-link-font-size: 20px;
 $input-bg: rgba(0, 0, 0, 0.75);
 $card-title-color: black;
 $card-color: black;
+$list-group-action-hover-color: #fa7e1e;
+
 body{
   background-image: url('https://wow.zamimg.com/images/tools/dragonflight-talent-calc/blizzard/talentbg-mage-fire.jpg');
   background-repeat: no-repeat;
@@ -13,6 +15,7 @@ body{
   
   
 }
+
 
 .navbar-brand {
   margin-left: 150px;
@@ -27,7 +30,7 @@ body{
 }
 
 .heading{
-  margin-top: 200px;
+  margin-top: 150px;
 }
 
 .form-control{

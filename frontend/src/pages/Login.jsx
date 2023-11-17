@@ -70,7 +70,7 @@ function Login() {
         <Container>
           <Row className="justify-content-center">
             <Col md={6}>
-              <section className="heading text-center">
+              <section className="heading">
                 <h1>
                   <BiLogIn /> Login to M+ Recruiter
                 </h1>

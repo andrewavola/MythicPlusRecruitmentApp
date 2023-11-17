@@ -8,7 +8,9 @@ const createConversation = asyncHandler(async(req, res) => {
 
   const exists = await Conversation.findOne({
       senderId: senderId,
-      receiverId: receiverId
+      receiverId: receiverId,
+      senderName: senderName,
+      receiverName: receiverName
   })
 
   if(exists){

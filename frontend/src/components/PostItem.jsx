@@ -4,12 +4,14 @@ import { createConversation } from "../features/conversations/conversationSlice"
 import { Card, Row, Col, Button } from "react-bootstrap";
 import { MdClose } from "react-icons/md";
 import {BiMessageAdd} from "react-icons/bi"
+import { useNavigate } from "react-router-dom";
 function PostItem({ post }) {
   //Grab current user id
   // const _id = useSelector((state) => state.auth.user?._id || '')
   const { _id, name } = useSelector((state) => state.auth.user || {}) || {};
   const { profilePicture } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   //Check if this user owns the post
   const isCurrentUser = post.user === _id;
 
@@ -46,7 +48,9 @@ function PostItem({ post }) {
       receiverName: post.characterName,
     };
 
-    dispatch(createConversation(convData));
+    const res = dispatch(createConversation(convData));
+    console.log(res)
+    navigate('/message')
   };
 
   const getColorForScore = (post) => {
@@ -96,9 +100,9 @@ function PostItem({ post }) {
               variant="link"
               className="close-button"
               onClick={() => handleDelete(post._id)}
-              style={{marginTop: '50px',width: '30%',fontSize: "1.5rem", color: "black" }}
+              style={{backgroundColor: 'rgba(0,0,0,0.2)',marginTop: '50px', paddingTop: '1px',width: '17%',fontSize: "1.5rem", color: "black" }}
             >
-              <MdClose />
+              <MdClose/>
             </Button>
             )}
             {!isCurrentUser && (
@@ -110,20 +114,6 @@ function PostItem({ post }) {
         </Col>
       </Row>
     </Card>
-    // <div className="goal">
-    //   <img src={post.characterPicture}alt="Character Avatar"></img>
-    //   <h2>{post.characterName}</h2>
-    //   <h1>{post.text}</h1>
-    //   <p>{post.mythicScore}</p>
-    //   <p>{post.classType}</p>
-    //   {isCurrentUser && (
-    //     <button onClick={handleDelete}>Delete Post</button>
-    //   )}
-
-    //   {!isCurrentUser && (
-    //     <button onClick={handleCreateConversation}>message button placeholder</button>
-    //   )}
-    // </div>
   );
 }
 

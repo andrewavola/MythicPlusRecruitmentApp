@@ -17,7 +17,7 @@ const createConversation = async(convData, token) =>{
       Authorization: `Bearer ${token}`
     }
   } 
-  console.log(convData)
+  
   const response = await axios.post(API_URL, convData, config)
   return response.data
 }

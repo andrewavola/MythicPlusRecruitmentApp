@@ -85,9 +85,9 @@ export const conversationSlice = createSlice({
         state.isError = true
         state.message = action.payload
       })
-      .addCase(deleteConversation.pending, (state) => {
-        state.isLoading = true
-      })
+      // .addCase(deleteConversation.pending, (state) => {
+      //   state.isLoading = true
+      // })
       .addCase(deleteConversation.fulfilled, (state, action) => {
         state.isLoading = false
         state.isSuccess = true

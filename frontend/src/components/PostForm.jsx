@@ -81,29 +81,7 @@ function PostForm() {
         </Row>
       </Container>
     </>
-    // <div>
-    //   <h2>Create a Post</h2>
-    //   <form onSubmit={handleSubmit}>
-    //     <label>
-    //       Select Character:
-    //       <select value={selectedCharacter ? selectedCharacter._id: ''} onChange={handleCharacterChange}>
-    //         <option value="" disabled>Select a character</option>
-    //         {characters && characters.map(characters => (
-    //           <option key={characters._id} value={characters._id}>
-    //             {characters.name}
-    //           </option>
-    //         ))}
-    //       </select>
-    //     </label>
-    //     <br />
-    //     <label>
-    //       Write your post:
-    //       <textarea value={text} onChange={handleTextchange} />
-    //     </label>
-    //     <br />
-    //     <button type="submit">Post</button>
-    //   </form>
-    // </div>
+    
   );
 }
 

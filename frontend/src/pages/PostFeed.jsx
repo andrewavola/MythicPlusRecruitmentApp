@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import Spinner from "../components/Spinner";
@@ -47,7 +47,7 @@ function PostFeed() {
         <h1> Welcome to the Feed</h1>
       </section>
       <PostForm />
-      <Container className="d-flex justify-content-center">
+      <Container fluid className="d-flex justify-content-center">
         <Col style={{borderRadius: '10px',backgroundColor: "rgba(13, 13, 13, 1)"}} md={7}>
           {posts.length > 0 ? (
             <div>

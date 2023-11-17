@@ -123,7 +123,7 @@ function CharacterItem({ character }) {
               variant="link"
               className="close-button"
               onClick={() => handleDeleteCharacter(character.id)}
-              style={{ width: '50%',fontSize: "1.5rem", color: "red" }}
+              style={{ backgroundColor: 'rgba(0,0,0,0.2)',marginTop: '30px', paddingTop: '1px',width: '35%',fontSize: "1.5rem", color: "black"}}
             >
               <MdClose />
             </Button>

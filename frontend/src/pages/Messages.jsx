@@ -126,7 +126,6 @@ function Messages() {
   return (
     <>
       <Container
-        
         style={{
           marginTop: "100px",
           height: "90vh",
@@ -137,13 +136,13 @@ function Messages() {
             className="overflow-hidden"
             md={4}
             style={{
-              height: "75vh",
+              height: "85vh",
               backgroundColor: "rgba(0,0,0,0.2)",
               borderRadius: "10px",
             }}
           >
             <h3>Conversations</h3>
-            <ListGroup style={{maxHeight: "69vh", overflowY: 'auto'}}>
+            <ListGroup style={{ maxHeight: "69vh", overflowY: "auto" }}>
               {conversations.map((conversation) => (
                 <ListGroup.Item
                   className="d-flex  mb-3 list-group-item-action"
@@ -166,61 +165,64 @@ function Messages() {
                         : conversation.senderPicture
                     }
                   />
-                  
                 </ListGroup.Item>
               ))}
             </ListGroup>
           </Col>
-          <Col md={8}>
+          <Col
+            md={8}
+            style={{
+              height: "85vh",
+              backgroundColor: "rgba(0,0,0,0.2)",
+              borderRadius: "10px",
+              borderLeft: "2px solid #000",
+            }}
+          >
             <h3>Messages</h3>
-          </Col>
-        </Row>
-      </Container>
-      {/* <div className="messenger">
-        <div className="chatMenu">
-          <div className="chatMenuWrapper">
-            Chats
-            {conversations.map((conversation) => (
-              <div onClick={() => handleConversationClick(conversation)}>
-                <ConversationItem
-                  key={conversation._id}
-                  conversation={conversation}
-                  otherPFP={((user._id === conversation.senderId) ? conversation.receiverPicture : conversation.senderPicture)}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="chatBox">
-          <div className="chatBoxWrapper">
-            ChatBox
-            {currentChat ? (
-              <>
-                <div className="chatBoxTop">
-                  {messages.map((m) => (
-                    <div key={m._id} ref={scrollReference}>
+            <Row
+              style={{
+                border: "1px solid #000",
+                margin: "auto",
+                justifyContent: "center",
+                backgroundColor: "rgba(0,0,0,0.4)",
+                height: "80%",
+                width: "90%",
+              }}
+            >
+              <Col style={{height: '100%', overflowY: 'auto' }}>
+                {currentChat ? (
+                  messages.map((m) => (
+                    <Row
+                      style={{marginTop: '16px'}}
+                      key={m._id}
+                      ref={scrollReference}
+                    >
                       <MessageItem
                         message={m}
                         own={m.sender === user.name}
                         otherPFP={otherUserPFP}
                       />
-                    </div>
-                  ))}
-                </div>
-
-                <div className="chatBoxBottom">
-                  <MessageForm conversation={currentChat._id} sender={user.name}
-                    receiver={otherUser} socket = {socket}/>
-                </div>
-              </>
-            ) : (
-              <div className="selectConversationMessage">
-                Select a conversation to view messages.
-              </div>
+                    </Row>
+                  ))
+                ) : (
+                  <h3>Click on a conversation</h3>
+                )}
+              </Col>
+            </Row>
+            {currentChat && (
+              <Row style={{ height: "9%", justifyContent: "center" }}>
+                <MessageForm
+                  conversation={currentChat?._id}
+                  sender={user.name}
+                  receiver={otherUser}
+                  socket={socket}
+                />
+              </Row>
             )}
-          </div>
-        </div>
-      </div> */}
+          </Col>
+        </Row>
+      </Container>
+      
     </>
   );
 }

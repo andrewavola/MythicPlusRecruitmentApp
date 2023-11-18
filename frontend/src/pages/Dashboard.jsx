@@ -47,8 +47,8 @@ function Dashboard() {
           src={profilePicture || defaultPFP}
           alt="Default PFP"
           style={{
-            width: "200px",
-            height: "200px",
+            width: "150px",
+            height: "150px",
             borderRadius: "50%",
             objectFit: "cover",
           }}

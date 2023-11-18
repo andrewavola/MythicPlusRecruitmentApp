@@ -1,30 +1,34 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createMessage } from "../features/messages/messageSlice";
-import {toast, ToastContainer} from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import {Row, Col, Form, Button} from 'react-bootstrap'
+import "react-toastify/dist/ReactToastify.css";
 
 function MessageForm({ conversation, sender, receiver, socket }) {
   const dispatch = useDispatch();
-  const [message, setMessage] = useState("")
-  const {_id} = useSelector((state) => state.auth.user)
- 
+  const [message, setMessage] = useState("");
+  // const { _id } = useSelector((state) => state.auth.user);
 
-
-  const sendMessage = (e) => {
-    e.preventDefault()
+  const handleKeyDown = (e) => {
+    if(e && e.key === 'Enter' && !e.shiftKey){
+      e.preventDefault()
+      sendMessage()
+    }
+  }
+  const sendMessage = () => {
+    
 
     const convData = {
       conversationID: conversation,
       sender: sender,
       text: message,
-    }
+    };
     socket.current.emit("sendMessage", {
       conversationID: conversation,
       sender: sender,
       receiverId: receiver,
       text: message,
-    })
+    });
 
     dispatch(createMessage(convData));
     setMessage("");
@@ -32,24 +36,31 @@ function MessageForm({ conversation, sender, receiver, socket }) {
 
   const isSendButtonDisabled = message.trim() === "";
   return (
-    <div className="chatBoxBottom">
-      <textarea
-        className="chatMessageInput"
-        placeholder="Send a message..."
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-      ></textarea>
-      <div id=""></div>
-      <button
-        type="submit"
-        className="chatSubmitButton"
-        onClick={sendMessage}
-        disabled={isSendButtonDisabled}
-      >
-        Send
-      </button>
-      <ToastContainer/>
-    </div>
+    <Form  onSubmit={sendMessage} style={{ height: "20%", width: "90%" }}>
+      <Row>
+        <Col md={10} style={{ paddingRight: "0px" }}>
+          <Form.Group controlId="messageTextArea">
+            <Form.Control
+              style={{ resize: "none" }}
+              value={message}
+              as="textarea"
+              rows={2}
+              placeholder="Type your message..."
+              onChange={(e) => setMessage(e.target.value)}
+              onKeyDown={handleKeyDown}
+            />
+          </Form.Group>
+        </Col>
+        <Col md={2} className="d-flex">
+          <Row>
+            <Button variant="secondary" type="submit" disabled={isSendButtonDisabled}>
+              Send
+            </Button>
+          </Row>
+        </Col>
+      </Row>
+    </Form>
+    
   );
 }
 

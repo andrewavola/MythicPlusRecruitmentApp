@@ -172,6 +172,7 @@ function Messages() {
           <Col
             md={8}
             style={{
+              
               height: "85vh",
               backgroundColor: "rgba(0,0,0,0.2)",
               borderRadius: "10px",

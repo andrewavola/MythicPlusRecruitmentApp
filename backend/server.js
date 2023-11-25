@@ -5,13 +5,16 @@ const colors = require('colors')
 const {errorHandler} = require('./middleware/errorMiddleware')
 const connectDB = require('./config/db')
 const port = process.env.PORT || 5000
-
+const cors = require('cors')
 connectDB()
 
 const app = express()
 
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
+app.use(cors({
+  methods:['GET', 'POST', 'DELETE']
+}))
 
 // User register logic
 app.use('/api/users', require('./routes/userRoutes'))
@@ -30,6 +33,7 @@ if(process.env.NODE_ENV === 'production'){
 }
 //Error handler middleware, add in controller function body
 app.use(errorHandler)
+app.use(cors())
 
 
 const server = app.listen(port, () => console.log(`Server started on port ${port}`))

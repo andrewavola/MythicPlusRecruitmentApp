@@ -39,7 +39,7 @@ function Messages() {
   }, []);
 
   useEffect(() => {
-    socket.current = io("https://m-recruitment.onrender.com:8080");
+    socket.current = io("https://m-recruitment.onrender.com");
     return () => {
       socket.current.disconnect();
     };

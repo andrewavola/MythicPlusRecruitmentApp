@@ -6,15 +6,14 @@ const http = require('http')
 const {errorHandler} = require('./middleware/errorMiddleware')
 const connectDB = require('./config/db')
 const port = process.env.PORT || 5000
-
-const backendPort = process.env.PORT || 5000
-const socketIoPort =  8080
+const socketIo = require("socket.io")
 
 const cors = require('cors')
 connectDB()
 
 const app = express()
 const server = http.createServer(app)
+
 
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
@@ -39,10 +38,11 @@ if(process.env.NODE_ENV === 'production'){
 }
 //Error handler middleware, add in controller function body
 app.use(errorHandler)
-app.use(cors())
 
 
-// const server = app.listen(8080, '0.0.0.0', () => console.log(`Server started on port ${port}`))
+
+// const server = app.listen(port, '0.0.0.0', () => console.log(`Server started on port ${port}`))
+
 
 // socket io
 const io = require('socket.io')(server, {
@@ -69,7 +69,7 @@ const getUser = (userId) => {
   return users.find(user=>user.userId === userId)
 }
 
-io.on('connect', (socket)=>{
+io.on('connection', (socket)=>{
   console.log('connected to socket.io')
 
   socket.on("addUser", userId=>{
@@ -98,9 +98,6 @@ io.on('connect', (socket)=>{
   })
 })
 
-server.listen(backendPort, '0.0.0.0', () => {
-  console.log(`Backend server started on port ${backendPort}`);
-});
+server.listen(port, '0.0.0.0', () => console.log(`Server started on port ${port}`))
 
-io.listen(socketIoPort);
-console.log(`Socket.IO server started on port ${socketIoPort}`);
+

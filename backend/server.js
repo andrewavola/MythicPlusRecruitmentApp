@@ -36,13 +36,14 @@ app.use(errorHandler)
 app.use(cors())
 
 
-const server = app.listen(port, () => console.log(`Server started on port ${port}`))
+const server = app.listen(port, '0.0.0.0', () => console.log(`Server started on port ${port}`))
 
 // socket io
 const io = require('socket.io')(server, {
   // pingTimeout: 60000,
   cors:{
-    origin: "https://m-recruitment.onrender.com"
+    origin: "https://m-recruitment.onrender.com",
+    methods: ["GET", "POST"]
   }
 })
 

@@ -36,7 +36,7 @@ app.use(errorHandler)
 app.use(cors())
 
 
-const server = app.listen(port, '0.0.0.0', () => console.log(`Server started on port ${port}`))
+const server = app.listen(8080, '0.0.0.0', () => console.log(`Server started on port ${port}`))
 
 // socket io
 const io = require('socket.io')(server, {

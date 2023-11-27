@@ -10,7 +10,7 @@ import { Container, Col, Row, ListGroup } from "react-bootstrap";
 import { getConversations } from "../features/conversations/conversationSlice";
 import { getMessages, setMessages } from "../features/messages/messageSlice";
 
-import io from "socket.io-client";
+import {io} from "socket.io-client";
 
 function Messages() {
   const dispatch = useDispatch();
@@ -39,7 +39,7 @@ function Messages() {
   }, []);
 
   useEffect(() => {
-    socket.current = io("https://m-recruitment.onrender.com/", {transports: ['websocket', 'polling']});
+    socket.current = io("https://m-recruitment.onrender.com/", {transports: ['websocket']});
     return () => {
       socket.current.disconnect();
     };

@@ -39,7 +39,7 @@ function Messages() {
   }, []);
 
   useEffect(() => {
-    socket.current = io.connect("https://m-recruitment.onrender.com:5000");
+    socket.current = io("https://m-recruitment.onrender.com", {transports: ['websocket']});
     return () => {
       socket.current.disconnect();
     };
@@ -69,9 +69,9 @@ function Messages() {
 
   // Get all conversations for the logged in User
   useEffect(() => {
-    if (isError) {
-      console.log(message);
-    }
+    // if (isError) {
+    //   console.log(message);
+    // }
     if (!user) {
       navigate("/login");
     }

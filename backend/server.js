@@ -48,7 +48,7 @@ app.use(errorHandler)
 const io = require('socket.io')(server, {
   // pingTimeout: 60000,
   cors:{
-    origin: 'https://m-recruitmentfrontend.onrender.com/',
+    origin: 'http://localhost:5000',
     methods: ["GET", "POST"]
   }
 })

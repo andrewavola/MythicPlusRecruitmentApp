@@ -46,7 +46,7 @@ app.use(errorHandler)
 
 const io = new Server(server, {
   cors:{
-    origin: 'https://m-recruitmentfrontend.onrender.com/',
+    origin: 'https://m-recruitmentfrontend.onrender.com',
     methods: ["GET", "POST"]
   }
   

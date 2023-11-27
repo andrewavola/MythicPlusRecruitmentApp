@@ -39,7 +39,7 @@ function Messages() {
   }, []);
 
   useEffect(() => {
-    socket.current = io.connect("https://m-recruitment.onrender.com/");
+    socket.current = io.connect("https://m-recruitment.onrender.com:5000");
     return () => {
       socket.current.disconnect();
     };

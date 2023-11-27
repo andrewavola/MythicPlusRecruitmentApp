@@ -6,13 +6,14 @@ const http = require('http')
 const {errorHandler} = require('./middleware/errorMiddleware')
 const connectDB = require('./config/db')
 const port = process.env.PORT || 5000
-const socketIo = require("socket.io")
+const {Server} = require("socket.io")
 
 const cors = require('cors')
 connectDB()
 
 const app = express()
 const server = http.createServer(app)
+
 
 
 app.use(express.json())
@@ -45,14 +46,20 @@ app.use(errorHandler)
 
 
 // socket io
-const io = require('socket.io')(server, {
-  // pingTimeout: 60000,
+// const io = require('socket.io')(server, {
+//   // pingTimeout: 60000,
+//   cors:{
+//     origin: 'https://m-recruitmentfrontend.onrender.com/',
+//     methods: ["GET", "POST"]
+//   }
+// })
+const io = new Server(server, {
   cors:{
     origin: 'https://m-recruitmentfrontend.onrender.com/',
     methods: ["GET", "POST"]
   }
+  
 })
-
 
 let users = []
 

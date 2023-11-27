@@ -39,7 +39,7 @@ function Messages() {
   }, []);
 
   useEffect(() => {
-    socket.current = io("https://m-recruitment.onrender.com/", {transports: ['websocket']});
+    socket.current = io("https://m-recruitment.onrender.com/");
     return () => {
       socket.current.disconnect();
     };

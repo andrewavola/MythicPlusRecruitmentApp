@@ -36,7 +36,7 @@ function MessageForm({ conversation, sender, receiver, socket }) {
 
   const isSendButtonDisabled = message.trim() === "";
   return (
-    <Form  onSubmit={(e)=>sendMessage} style={{ height: "20%", width: "90%" }}>
+    <Form  onSubmit={(e)=>sendMessage(e)} style={{ height: "20%", width: "90%" }}>
       <Row>
         <Col md={10} style={{ paddingRight: "0px" }}>
           <Form.Group controlId="messageTextArea">

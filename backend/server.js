@@ -46,7 +46,7 @@ app.use(errorHandler)
 
 const io = new Server(server, {
   cors:{
-    origin: 'http://localhost:5000',
+    origin: 'https://m-recruitmentfrontend.onrender.com/',
     methods: ["GET", "POST"]
   }
   
@@ -96,6 +96,6 @@ io.on('connection', (socket)=>{
   })
 })
 
-server.listen(port, '0.0.0.0', () => console.log(`Server started on port ${port}`))
+server.listen(port, () => console.log(`Server started on port ${port}`))
 
 

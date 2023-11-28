@@ -15,9 +15,9 @@ function MessageForm({ conversation, sender, receiver, socket }) {
       sendMessage()
     }
   }
-  const sendMessage = (e) => {
+  const sendMessage = () => {
     
-    e.preventDefault()
+    
     const convData = {
       conversationID: conversation,
       sender: sender,
@@ -36,7 +36,7 @@ function MessageForm({ conversation, sender, receiver, socket }) {
 
   const isSendButtonDisabled = message.trim() === "";
   return (
-    <Form  onSubmit={(e)=>sendMessage(e)} style={{ height: "20%", width: "90%" }}>
+    <Form  onSubmit={(e) => e.preventDefault()} style={{ height: "20%", width: "90%" }}>
       <Row>
         <Col md={10} style={{ paddingRight: "0px" }}>
           <Form.Group controlId="messageTextArea">
@@ -53,7 +53,7 @@ function MessageForm({ conversation, sender, receiver, socket }) {
         </Col>
         <Col md={2} className="d-flex">
           <Row>
-            <Button variant="secondary" type="submit" disabled={isSendButtonDisabled}>
+            <Button variant="secondary" type="submit" disabled={isSendButtonDisabled} onClick={sendMessage}>
               Send
             </Button>
           </Row>
